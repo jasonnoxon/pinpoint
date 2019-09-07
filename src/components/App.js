@@ -28,7 +28,16 @@ class App extends React.Component {
     console.log(result);
   };
   render() {
-    return <StatusList people={this.state.people} />;
+    return (
+      <div>
+        <p>
+          Pinpoint allows people to update their status at work to see who is
+          available and who isn't! Mouse-over each square to get additional
+          information.
+        </p>
+        <StatusList people={this.state.people} />
+      </div>
+    );
   }
 }
 
