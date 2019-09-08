@@ -2,10 +2,6 @@ import React from 'react';
 import './StatusItem.css';
 
 class StatusItem extends React.Component {
-  state = { front: true };
-  onStatusItemClick = () => {
-    console.log('clicked');
-  };
   getRandomDelay() {
     const times = ['slow', 'fast', 'faster'];
     const index = Math.floor(Math.random() * times.length);
@@ -17,24 +13,26 @@ class StatusItem extends React.Component {
     return (
       <div
         className={`flip-card ${this.getRandomDelay()}`}
-        onClick={this.onStatusItemClick}
+        onClick={() => {
+          this.props.onPersonSelected(this.props.person);
+        }}
       >
-        <div className={`flip-card-inner ${this.props.status.status}`}>
+        <div className={`flip-card-inner ${this.props.person.status}`}>
           <div className="flip-card-front">
             <h3>
-              {this.props.status.firstname} {this.props.status.lastname}
+              {this.props.person.firstname} {this.props.person.lastname}
             </h3>
           </div>
           <div className="flip-card-back">
             <p>
-              {this.props.status.status[0] === 'in'
-                ? `${this.props.status.firstname} is currently in.`
-                : this.props.status.notes}
+              {this.props.person.status[0] === 'in'
+                ? `${this.props.person.firstname} is currently in.`
+                : this.props.person.notes}
             </p>
             <p>
-              {this.props.status.returning === undefined
+              {this.props.person.returning === undefined
                 ? ''
-                : `${this.props.status.firstname} will be back on ${this.props.status.returning}`}
+                : `${this.props.person.firstname} will be back on ${this.props.person.returning}`}
             </p>
           </div>
         </div>

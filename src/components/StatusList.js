@@ -6,7 +6,11 @@ class StatusList extends React.Component {
   render() {
     const renderedList = this.props.people.map(person => {
       return (
-        <StatusItem key={person.id} status={person.fields} />
+        <StatusItem
+          key={person.id}
+          person={person.fields}
+          onPersonSelected={this.props.onPersonSelected}
+        />
       );
     });
     return <div className="ui grid">{renderedList}</div>;

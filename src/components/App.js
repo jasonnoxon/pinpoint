@@ -1,9 +1,10 @@
 import React from 'react';
 import StatusList from './StatusList';
+import StatusEdit from './StatusEdit';
 import airtable from 'airtable';
 
 class App extends React.Component {
-  state = { people: [], loading: true };
+  state = { people: [], selectedPerson: null, loading: true };
 
   componentDidMount = async () => {
     airtable.configure({
@@ -11,7 +12,6 @@ class App extends React.Component {
       apiKey: process.env.REACT_APP_API_KEY
     });
     const base = airtable.base(process.env.REACT_APP_BASE_ID);
-    let result = [];
 
     await base('status')
       .select({
@@ -24,9 +24,17 @@ class App extends React.Component {
         }
         this.setState({ people: records, loading: false });
       });
-
-    console.log(result);
   };
+
+  onPersonSelected = person => {
+    this.setState({ selectedPerson: person });
+  };
+
+  onPersonSaved = person => {
+    this.setState({ selectedPerson: null });
+    console.log(person);
+  };
+
   render() {
     return (
       <div>
@@ -35,7 +43,15 @@ class App extends React.Component {
           available and who isn't! Mouse-over each square to get additional
           information.
         </p>
-        <StatusList people={this.state.people} />
+
+        <StatusList
+          people={this.state.people}
+          onPersonSelected={this.onPersonSelected}
+        />
+        <StatusEdit
+          person={this.state.selectedPerson}
+          onPersonSaved={this.onPersonSaved}
+        />
       </div>
     );
   }
