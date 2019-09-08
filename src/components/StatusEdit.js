@@ -8,20 +8,41 @@ class StatusEdit extends React.Component {
 
     return (
       <div className="ui segment">
-        <div class="ui action input">
-          <input type="text" value={this.props.person.firstname} />
-          <input type="text" value={this.props.person.lastname} />
+        <div className="ui action input">
+          <input
+            type="text"
+            value={this.props.person.fields.firstname}
+            onChange={e => {
+              this.props.person.fields.firstname = e.target.value;
+            }}
+          />
+          <input
+            type="text"
+            value={this.props.person.fields.lastname}
+            onChange={e => {
+              this.props.person.fields.lastname = e.target.value;
+            }}
+          />
           <select
-            class="ui compact selection dropdown"
-            defaultValue={this.props.person.status}
+            className="ui compact selection dropdown"
+            value={this.props.person.fields.status[0]}
+            onChange={e => {
+              this.props.person.fields.status[0] = e.target.value;
+            }}
           >
             <option value="in">In</option>
             <option value="out">Out</option>
             <option value="Busy">Busy</option>
           </select>
-          <input type="text" value={this.props.person.notes} />
+          <input
+            type="text"
+            value={this.props.person.fields.notes}
+            onChange={e => {
+              this.props.person.fields.notes = e.target.value;
+            }}
+          />
           <div
-            class="ui button"
+            className="ui button"
             onClick={() => {
               this.props.onPersonSaved(this.props.person);
             }}

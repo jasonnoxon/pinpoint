@@ -17,22 +17,23 @@ class StatusItem extends React.Component {
           this.props.onPersonSelected(this.props.person);
         }}
       >
-        <div className={`flip-card-inner ${this.props.person.status}`}>
+        <div className={`flip-card-inner ${this.props.person.fields.status}`}>
           <div className="flip-card-front">
             <h3>
-              {this.props.person.firstname} {this.props.person.lastname}
+              {this.props.person.fields.firstname}{' '}
+              {this.props.person.fields.lastname}
             </h3>
           </div>
           <div className="flip-card-back">
             <p>
-              {this.props.person.status[0] === 'in'
-                ? `${this.props.person.firstname} is currently in.`
-                : this.props.person.notes}
+              {this.props.person.fields.status[0] === 'in'
+                ? `${this.props.person.fields.firstname} is currently in.`
+                : this.props.person.fields.notes}
             </p>
             <p>
-              {this.props.person.returning === undefined
+              {this.props.person.fields.returning === undefined
                 ? ''
-                : `${this.props.person.firstname} will be back on ${this.props.person.returning}`}
+                : `${this.props.person.fields.firstname} will be back on ${this.props.person.fields.returning}`}
             </p>
           </div>
         </div>

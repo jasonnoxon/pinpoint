@@ -31,8 +31,29 @@ class App extends React.Component {
   };
 
   onPersonSaved = person => {
+    airtable.configure({
+      endpointUrl: 'https://api.airtable.com',
+      apiKey: process.env.REACT_APP_API_KEY
+    });
+    const base = airtable.base(process.env.REACT_APP_BASE_ID);
+    base('status').update(
+      person.id,
+      {
+        lastname: person.fields.lastname,
+        firstname: person.fields.firstname,
+        status: person.fields.status,
+        notes: person.fields.notes
+      },
+      function(err, record) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        console.log(record.get('lastname'));
+      }
+    );
+
     this.setState({ selectedPerson: null });
-    console.log(person);
   };
 
   render() {

@@ -8,7 +8,7 @@ class StatusList extends React.Component {
       return (
         <StatusItem
           key={person.id}
-          person={person.fields}
+          person={person}
           onPersonSelected={this.props.onPersonSelected}
         />
       );
